@@ -1,4 +1,4 @@
-# Databricks Marketing Demo (Beginner to Mid-Level)
+# Databricks Marketing Demo
 
 This demo showcases Databricks-native capabilities for common marketing analytics and campaign management scenarios using the Lakehouse: Delta Lake, Unity Catalog, Delta Live Tables (DLT), Auto Loader, SQL, Workflows, MLflow/AutoML, and Lakeview dashboards.
 
