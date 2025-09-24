@@ -1,21 +1,12 @@
-# Databricks Marketing Demo (Beginner to Mid-Level)
+# Databricks Marketing Demo
 
-This demo showcases Databricks-native capabilities for common marketing analytics and campaign management scenarios using the Lakehouse: Delta Lake, Unity Catalog, Delta Live Tables (DLT), Auto Loader, SQL, Workflows, MLflow/AutoML, and Lakeview dashboards.
-
-Audience: Beginner to mid-level stakeholders (marketing analysts, marketing ops, data practitioners starting on Databricks).
+This demo showcases Databricks-native capabilities for marketing analytics and campaign management scenarios using native Databricks features.
 
 ## What you will build
-- End-to-end pipeline: synthetic raw marketing data → bronze/silver/gold using DLT
-- KPIs for channel and campaign performance: ROAS, CAC, CTR, CVR, LTV
-- A simple conversion propensity model with AutoML and MLflow model registry
-- A Lakeview dashboard and a scheduled Workflow to refresh everything
-
-## Prerequisites
-- A Databricks workspace with Unity Catalog (recommended) and Lakeview enabled
-- Permission to create schemas and volumes in your chosen catalog
-- A cluster or SQL Warehouse with access to Unity Catalog
-
-If Unity Catalog is not available, please let us know; we can adapt to workspace-local default behaviors. Volumes and UC models are recommended for governance.
+- End-to-end pipeline following the medallion architecture (e.g., bronze/silver/gold) using declarative pipelines
+- Define Semantic Layer for channel and campaign performance KPIs
+- A conversion propensity model with AutoML and MLflow model registry
+- An AI/BI dashboard and a scheduled Workflow to keep our data products discoverable and fresh
 
 ## Quickstart
 1) Pick your catalog and schema for the demo (default: `main`.`marketing_demo`).
@@ -28,7 +19,6 @@ If Unity Catalog is not available, please let us know; we can adapt to workspace
 6) Open and run `sql/04_analytics.sql` to create analytics views (ROAS, CAC, LTV, channel performance).
 7) (Optional) Open and run `python/05_ml_propensity.py` to train an AutoML model and register it with MLflow.
 8) Follow `docs/06_dashboard_and_workflows.md` to build a Lakeview dashboard and a Workflows job.
-9) Use `docs/demo_script.md` for a concise talk track.
 
 ## Data model (simplified)
 - Campaigns and daily spend
