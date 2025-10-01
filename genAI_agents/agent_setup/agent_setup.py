@@ -15,6 +15,12 @@ from databricks.vector_search.client import VectorSearchClient
 w = WorkspaceClient()
 client = VectorSearchClient()
 
+# Global Variables
+CATALOG = "lab"
+SCHEMA = 
+
+# -------- Download data for demos ---------
+
 base_url = "https://raw.githubusercontent.com/databricks/tmm/main/agents-workshop/data"
 csv_files = {
     "cust_service_data": f"{base_url}/cust_service_data.csv",
@@ -23,10 +29,10 @@ csv_files = {
 } 
 
 # Create catalog if not exists
-spark.sql("CREATE CATALOG IF NOT EXISTS agents_lab")
+spark.sql(f"CREATE CATALOG IF NOT EXISTS {CATALOG}")
 
 # Create schema if not exists
-spark.sql("CREATE SCHEMA IF NOT EXISTS agents_lab.product")
+spark.sql(f"CREATE SCHEMA IF NOT EXISTS agents_lab.product")
 
 # Download and load each CSV file
 for table_name, url in csv_files.items():
