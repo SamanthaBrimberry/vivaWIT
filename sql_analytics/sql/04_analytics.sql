@@ -1,8 +1,8 @@
 -- Databricks Marketing Demo - Analytics views
 -- Run after the DLT pipeline has created gold tables.
 
-USE CATALOG main;
-USE SCHEMA marketing_demo;
+USE CATALOG lab;
+USE SCHEMA data;
 
 -- View: ROAS, CAC, LTV by channel and day
 CREATE OR REPLACE VIEW vw_channel_kpis AS
