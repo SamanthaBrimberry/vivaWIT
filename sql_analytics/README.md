@@ -3,10 +3,19 @@
 This demo showcases Databricks-native capabilities for marketing analytics and campaign management scenarios using native Databricks features.
 
 ## What you will build
-- End-to-end pipeline following the medallion architecture (e.g., bronze/silver/gold) using declarative pipelines
-- Define Semantic Layer for channel and campaign performance KPIs
+- End-to-end pipeline following the medallion architecture (e.g., bronze/silver/gold)
+- Create channel and campaign performance KPIs
 - A conversion propensity model with AutoML and MLflow model registry
 - An AI/BI dashboard and a scheduled Workflow to keep our data products discoverable and fresh
+
+## Lab Agenda
+| Step | Topic | Notebook | What you'll do |
+| --- | --- | --- | --- |
+| 1 | Build Silver/Gold tables | [sql/01_ETL](./sql/01_ETL.ipynb) | Clean raw data into Silver, aggregate KPIs into Gold (CTR, CVR, ROAS) |
+| 2 | Explore KPIs | [sql/02_analytics](sql_analytics/sql/02_analytics.ipynb) | EDA, completeness checks, trends (MA7), seasonality, spend↔revenue correlation |
+| 3 | Create revenue forecast| [sql/03_rev_forecast](sql_analytics/sql/03_rev_forecast.sql.dbquery.ipynb)  | Create 14 day revenue forecast using AI functions |
+| 4 | Curate analytics views | [sql/04_analytics](sql_analytics/sql/04_analytics.ipynb)  | Create reusable views: channel KPIs, campaign performance, LTV by signup cohort 
+| 5 (optional) | Train propensity model | [python/05_ml_propensity](sql_analytics/ml/05_propensity_model.ipynb) | AutoML training and MLflow registration |
 
 ## Quickstart
 1) Pick your catalog and schema for the demo (default: `main`.`marketing_demo`).
@@ -26,18 +35,3 @@ This demo showcases Databricks-native capabilities for marketing analytics and c
 - Customers and orders
 
 Bronze = raw ingested JSON, Silver = cleaned/typed, Gold = business aggregates for reporting and ML features.
-
-## Files
-- `sql/01_setup_uc.sql`: Creates schema and a `raw` Volume
-- `python/02_generate_data.py`: Writes raw JSON files per source into the Volume
-- `dlt/03_dlt_pipeline.sql`: DLT pipeline (Auto Loader + expectations + SCD-ready tables)
-- `sql/04_analytics.sql`: KPI views (ROAS, CAC, LTV, channel and campaign performance)
-- `python/05_ml_propensity.py`: AutoML classification for conversion propensity
-- `docs/06_dashboard_and_workflows.md`: Setup Lakeview dashboard and Workflows job
-- `docs/demo_script.md`: 10–20 min guided demo script
-
-## Notes
-- This demo uses only Databricks-native capabilities. No external tools or libraries are required beyond standard Databricks runtimes.
-- If your workspace uses a different default catalog or limited privileges, replace `main` with your catalog in the SQL and notebooks.
-
-
