@@ -1,12 +1,11 @@
-# Databricks Marketing Demo - Conversion propensity (AutoML)
 # Trains a simple classifier and registers the best model with MLflow Registry.
-
+!pip install mlflow
 import mlflow
-from databricks import automl
+from databricks.automl import automl
 from pyspark.sql import functions as F
 
-CATALOG = "main"
-SCHEMA = "marketing_demo"
+CATALOG = "lab"
+SCHEMA = "data"
 
 spark.sql(f"USE CATALOG {CATALOG}")
 spark.sql(f"USE SCHEMA {SCHEMA}")
