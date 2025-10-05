@@ -11,7 +11,7 @@ This demo showcases Databricks-native capabilities for marketing analytics and c
 ## Lab Agenda
 | Step | Topic | Notebook | What you'll do |
 | --- | --- | --- | --- |
-| 1 | Build Silver/Gold tables | [sql/01_ETL](/sql/01_ETL.ipynb) | Clean raw data into Silver, aggregate KPIs into Gold (CTR, CVR, ROAS) |
+| 1 | Build Silver/Gold tables | [sql/01_ETL](sql/01_ETL.ipynb) | Clean raw data into Silver, aggregate KPIs into Gold (CTR, CVR, ROAS) |
 | 2 | Explore KPIs | [sql/02_analytics](sql_analytics/sql/02_analytics.ipynb) | EDA, completeness checks, trends (MA7), seasonality, spend↔revenue correlation |
 | 3 | Create revenue forecast| [sql/03_rev_forecast](sql_analytics/sql/03_rev_forecast.sql.dbquery.ipynb)  | Create 14 day revenue forecast using AI functions |
 | 4 | Curate analytics views | [sql/04_analytics](sql_analytics/sql/04_analytics.ipynb)  | Create reusable views: channel KPIs, campaign performance, LTV by signup cohort 
