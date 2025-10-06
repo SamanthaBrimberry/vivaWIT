@@ -15,6 +15,12 @@ NUM_CAMPAIGNS = 12
 NUM_DAYS = 30
 USERS_PER_DAY = 2000
 
+# Tuning: increase likelihood of conversions for ML training labels
+# Can be overridden via env var CONVERSION_RATE_MULTIPLIER
+CONVERSION_RATE_MULTIPLIER = float(os.getenv("CONVERSION_RATE_MULTIPLIER", "3.0"))
+# Upper bound on effective conversion probability per user
+MAX_CVR = 0.6
+
 random.seed(7)
 fake = Faker()
 fake.seed_instance(7)
@@ -78,6 +84,11 @@ for cid in range(1, NUM_CAMPAIGNS + 1):
 
 # Helpful lookup for channel by campaign
 campaign_id_to_channel = {row[0]: row[2] for row in campaign_rows}
+
+# Reverse lookup: channel -> list[campaign_id]
+channel_to_campaign_ids = {}
+for row in campaign_rows:
+    channel_to_campaign_ids.setdefault(row[2], []).append(row[0])
 
 
 # ---------- Daily spend ----------
@@ -178,7 +189,9 @@ for uid in range(1, user_base + 1):
         "display": 0.01,
         "affiliate": 0.05,
     }[first_touch_channel]
-    cvr = max(0.001, random.gauss(base_cvr, base_cvr * 0.4))
+    # Boost conversion rate with configurable multiplier, clamp to a sane max
+    boosted_mean = base_cvr * CONVERSION_RATE_MULTIPLIER
+    cvr = max(0.001, min(MAX_CVR, random.gauss(boosted_mean, boosted_mean * 0.4)))
     if random.random() < cvr:
         order_day = signup_day + random.randint(0, 7)
         order_day = min(order_day, NUM_DAYS - 1)
@@ -188,6 +201,15 @@ for uid in range(1, user_base + 1):
         aov_means = {"mobile": 110.0, "desktop": 140.0, "tablet": 120.0}
         revenue = max(10.0, random.gauss(aov_means[purchase_device], 40.0))
         order_rows.append((uid, str(od), purchase_device, float(round(revenue, 2))))
+
+        # Ensure at least one same-day impression and click to create positive labels
+        campaign_choices = channel_to_campaign_ids.get(first_touch_channel, list(campaign_id_to_channel.keys()))
+        ensured_campaign_id = random.choice(campaign_choices)
+        ensured_country = random.choice(countries)
+        ensured_placement = random.choice(["feed", "search", "stories", "sidebar"])
+        ensured_ts = datetime(od.year, od.month, od.day, random.randint(9, 21), random.randint(0, 59), random.randint(0, 59))
+        all_impressions.append((uid, ensured_campaign_id, purchase_device, ensured_country, ensured_placement, ensured_ts.isoformat()))
+        all_clicks.append((uid, ensured_campaign_id, purchase_device, ensured_country, ensured_placement, ensured_ts.isoformat()))
 
 # ---------- CSV outputs ----------
 def write_csv(path, header, rows):
