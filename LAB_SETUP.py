@@ -1,9 +1,4 @@
 # Databricks notebook source
-# MAGIC %pip install --quiet databricks-vectorsearch mlflow-skinny[databricks] langgraph==0.3.4 databricks-langchain databricks-agents uv
-# MAGIC %restart_python
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC ### Updating Lab's config in Vocareum
 # MAGIC In order to upload custom lab content we need to update the `content.src` and `workspace_setup.src`.
