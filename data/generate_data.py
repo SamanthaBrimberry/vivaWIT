@@ -17,7 +17,7 @@ USERS_PER_DAY = 2000
 
 # Tuning: increase likelihood of conversions for ML training labels
 # Can be overridden via env var CONVERSION_RATE_MULTIPLIER
-CONVERSION_RATE_MULTIPLIER = float(os.getenv("CONVERSION_RATE_MULTIPLIER", "3.0"))
+CONVERSION_RATE_MULTIPLIER = float(os.getenv("CONVERSION_RATE_MULTIPLIER", "5.0"))
 # Upper bound on effective conversion probability per user
 MAX_CVR = 0.6
 
